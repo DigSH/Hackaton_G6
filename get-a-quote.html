@@ -15,7 +15,7 @@
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com" rel="preconnect">
   <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap" rel="stylesheet">
 
   <!-- Vendor CSS Files -->
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -27,6 +27,47 @@
 
   <!-- Main CSS File -->
   <link href="assets/css/main.css" rel="stylesheet">
+
+  <style>
+    #chat-container {
+      margin-top: 20px;
+      border: 1px solid #ccc;
+      padding: 15px;
+      background-color: #f9f9f9;
+      border-radius: 5px;
+    }
+
+    #chat-box {
+      height: 200px;
+      overflow-y: auto;
+      margin-bottom: 10px;
+      background: #fff;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #e0e0e0;
+    }
+
+    #user-input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .btn-primary {
+      background-color: #007bff;
+      border-color: #007bff;
+      color: #fff;
+      border-radius: 5px;
+      padding: 10px 20px;
+    }
+
+    .btn-primary:hover {
+      background-color: #0056b3;
+      border-color: #004085;
+    }
+  </style>
 
   <!-- =======================================================
   * Template Name: Logis
@@ -45,7 +86,7 @@
       <a href="index.html" class="logo d-flex align-items-center me-auto">
         <!-- Uncomment the line below if you also wish to use an image logo -->
         <!-- <img src="assets/img/logo.png" alt=""> -->
-        <h1 class="sitename">TRAVEL ROOMIE</h1>
+        <h1 class="sitename">SISAV</h1>
       </a>
 
       <nav id="navmenu" class="navmenu">
@@ -54,13 +95,11 @@
           <li><a href="about.html">Mas Sobre nuestro Servicio</a></li>
           <li><a href="services.html">Servicios Generales</a></li>
           <li><a href="pricing.html">Precios y Consultas</a></li>
-           
           <li><a href="contact.html">Contactenos ahora</a></li>
         </ul>
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
       </nav>
-      <a class="btn-getstarted" href="get-a-quote.html">Hablemos</a>
- 
+      <a class="btn-getstarted" href="get-a-quote.html">Informacion con chat en tiempo real</a>
     </div>
   </header>
 
@@ -82,12 +121,8 @@
 
     <!-- Get A Quote Section -->
     <section id="get-a-quote" class="get-a-quote section">
-
       <div class="container">
-
         <div class="row g-0" data-aos="fade-up" data-aos-delay="100">
-
-          
           <form action="#" method="POST" enctype="multipart/form-data" autocomplete="off">
             <div class="error-text"></div>
             <div class="name-details">
@@ -104,29 +139,29 @@
               <label>Correo</label>
               <input type="text" name="email" placeholder="tucorreo@correo.com" required>
             </div>
-            <div class="field input">
-              <label>Contraseña</label>
-              <input type="password" name="password" placeholder="Ingresa tu contraseña" required>
-              <i class="fas fa-eye"></i>
+            <div class="field image">
+              <label>Tu Avatar</label>
+              <input type="file" name="image" accept="image/x-png,image/gif,image/jpeg,image/jpg" required>
             </div>
             <div class="field button">
-              <input type="submit" name="submit" value="Acceder al Chat">
-            </div>
-              <!-- Chat Section -->
-            <div id="chat-container" style="margin-top: 20px;">
-              <div id="chat-box" class="chat-box" style="height: 200px; overflow-y: auto; border: 1px solid #ccc; padding: 15px; background-color: #f9f9f9;"></div>
-              <input type="text" id="user-input" placeholder="Ingrese el municipio, precio y número de personas (Ej: Duitama, 120000, 9)" style="width: 100%; padding: 10px; margin-top: 10px; border: 1px solid #ccc; border-radius: 5px;">
-              <button class="btn btn-primary mt-2" onclick="enviarConsulta()">Enviar</button>
+              <input type="submit" name="submit" value="Acceder al Chat" class="btn btn-primary">
             </div>
           </form>
-        </div>
 
+          <!-- Chat Section -->
+          <div id="chat-container">
+            <div id="chat-box" class="chat-box"></div>
+            <input type="text" id="user-input" placeholder="Ingrese el municipio, precio y número de personas (Ej: Duitama, 120000, 9)">
+            <button class="btn btn-primary mt-2" onclick="enviarConsulta()">Enviar</button>
+          </div>
+
+        </div>
+      </div>
     </section><!-- /Get A Quote Section -->
 
   </main>
 
   <footer id="footer" class="footer dark-background">
-
     <div class="container footer-top">
       <div class="row gy-4">
         <div class="col-lg-5 col-md-12 footer-about">
@@ -172,7 +207,6 @@
           <p class="mt-4"><strong>Phone:</strong> <span>+1 5589 55488 55</span></p>
           <p><strong>Email:</strong> <span>info@example.com</span></p>
         </div>
-
       </div>
     </div>
 
@@ -186,7 +220,6 @@
         Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
       </div>
     </div>
-
   </footer>
 
   <!-- Scroll Top -->
@@ -205,6 +238,55 @@
 
   <!-- Main JS File -->
   <script src="assets/js/main.js"></script>
+
+  <script>
+    function enviarConsulta() {
+        let userInput = document.getElementById('user-input').value;
+
+        // Parsear el input para extraer municipio, precio y personas
+        let [municipio, precio, personas] = userInput.split(',');
+        let data = {
+            municipio: municipio.trim(),
+            precio: parseInt(precio.trim()),
+            personas: parseInt(personas.trim())
+        };
+
+        // Llamar a la API con la información proporcionada
+        fetch('http://127.0.0.1:5000/api/recomendaciones', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => response.json())
+        .then(data => {
+            let chatBox = document.getElementById('chat-box');
+            if (data.mensaje) {
+                chatBox.innerHTML += `<div class='response'>${data.mensaje}</div>`;
+            } else {
+                data.forEach(hotel => {
+                    chatBox.innerHTML += `
+                        <div class='response'>
+                            <strong>Hotel:</strong> ${hotel['Nombre.Comercial']}<br>
+                            <strong>Dirección:</strong> ${hotel['Direccion.Comercial']}<br>
+                            <strong>Correo:</strong> ${hotel['Correo.Electronico']}<br>
+                            <strong>Habitaciones:</strong> ${hotel['Habitaciones']}<br>
+                            <strong>Camas:</strong> ${hotel['Camas']}<br>
+                            <strong>Empleados:</strong> ${hotel['Empleados']}<br>
+                            <br>
+                        </div>
+                    `;
+                });
+            }
+            // Limpiar el campo de entrada
+            document.getElementById('user-input').value = '';
+            // Hacer scroll al final del chat
+            chatBox.scrollTop = chatBox.scrollHeight;
+        })
+        .catch(error => console.error('Error:', error));
+    }
+  </script>
 
 </body>
 
