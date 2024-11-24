@@ -188,6 +188,9 @@
         let chatBox = document.getElementById('chat-box');
         chatBox.innerHTML += `<div><strong>Tú:</strong> ${userInput}</div>`;
 
+        console.log("Enviando consulta a la API...");
+        console.log(data);
+
         // Llamar a la API con la información proporcionada
         fetch('/api/recomendaciones', {
             method: 'POST',
@@ -196,8 +199,12 @@
             },
             body: JSON.stringify(data)
         })
-        .then(response => response.json())
+        .then(response => {
+            console.log("Respuesta recibida:", response);
+            return response.json();
+        })
         .then(data => {
+            console.log("Datos de respuesta procesados:", data);
             if (data.mensaje) {
                 chatBox.innerHTML += `<div class='response'><strong>Respuesta:</strong> ${data.mensaje}</div>`;
             } else {
