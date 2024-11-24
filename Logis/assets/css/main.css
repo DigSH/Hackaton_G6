@@ -1089,12 +1089,12 @@ section,
   border: 1px solid color-mix(in srgb, var(--default-color), transparent 85%);
   position: relative;
   border-radius: 0;
-  height: 100%;
+  height: 81%;
 }
 
 .services .card .card-img {
   overflow: hidden;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
   border-radius: 0;
 }
 
@@ -1928,7 +1928,10 @@ section,
   background-size: cover;
   background-position: center;
 }
+.mi-agregado input{
+  background-position: center;
 
+}
 .get-a-quote .php-email-form {
   background: color-mix(in srgb, var(--default-color), transparent 97%);
   padding: 30px;
@@ -1937,7 +1940,11 @@ section,
 
 @media (max-width: 575px) {
   .get-a-quote .php-email-form {
-    padding: 20px;
+    padding: 200px;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    height: 200px;
   }
 }
 
