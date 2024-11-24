@@ -1,0 +1,9 @@
+#Librerías
+library(tidyverse)
+
+#Importe de datos
+hotel <- read.csv2("data/hoteles.csv", sep = ",")
+
+#
+str(hotel)
+
