@@ -38,7 +38,7 @@
     }
 
     #chat-box {
-      height: 200px;
+      height: 300px;
       overflow-y: auto;
       margin-bottom: 10px;
       background: #fff;
@@ -48,9 +48,8 @@
     }
 
     #user-input {
-      width: 100%;
+      width: calc(100% - 110px);
       padding: 10px;
-      margin-top: 10px;
       border: 1px solid #ccc;
       border-radius: 5px;
     }
@@ -66,6 +65,12 @@
     .btn-primary:hover {
       background-color: #0056b3;
       border-color: #004085;
+    }
+
+    #input-container {
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
   </style>
 </head>
@@ -130,8 +135,10 @@
           <!-- Chat Section -->
           <div id="chat-container">
             <div id="chat-box" class="chat-box"></div>
-            <input type="text" id="user-input" placeholder="Ingrese el municipio, precio y número de personas (Ej: Duitama, 120000, 9)" class="form-control">
-            <button class="btn btn-primary mt-2" onclick="enviarConsulta()">Enviar</button>
+            <div id="input-container">
+              <input type="text" id="user-input" placeholder="Ingrese el municipio, precio y número de personas (Ej: Duitama, 120000, 9)" class="form-control">
+              <button class="btn btn-primary" onclick="enviarConsulta()">Enviar</button>
+            </div>
           </div>
 
         </div>
@@ -143,12 +150,6 @@
   <footer id="footer" class="footer dark-background">
     <!-- Footer content here -->
   </footer>
-
-  <!-- Scroll Top -->
-  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-
-  <!-- Preloader -->
-  <div id="preloader"></div>
 
   <!-- Vendor JS Files -->
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -165,13 +166,27 @@
     function enviarConsulta() {
         let userInput = document.getElementById('user-input').value;
 
+        if (userInput.trim() === "") {
+            alert("Por favor, ingrese el municipio, precio y número de personas.");
+            return;
+        }
+
         // Parsear el input para extraer municipio, precio y personas
         let [municipio, precio, personas] = userInput.split(',');
+        if (!municipio || !precio || !personas) {
+            alert("Por favor, ingrese todos los datos: municipio, precio y número de personas.");
+            return;
+        }
+
         let data = {
             municipio: municipio.trim(),
             precio: parseInt(precio.trim()),
             personas: parseInt(personas.trim())
         };
+
+        // Añadir el mensaje del usuario al chatbox
+        let chatBox = document.getElementById('chat-box');
+        chatBox.innerHTML += `<div><strong>Tú:</strong> ${userInput}</div>`;
 
         // Llamar a la API con la información proporcionada
         fetch('/api/recomendaciones', {
@@ -183,9 +198,6 @@
         })
         .then(response => response.json())
         .then(data => {
-            let chatBox = document.getElementById('chat-box');
-            chatBox.innerHTML += `<div><strong>Tú:</strong> ${userInput}</div>`;
-
             if (data.mensaje) {
                 chatBox.innerHTML += `<div class='response'><strong>Respuesta:</strong> ${data.mensaje}</div>`;
             } else {
@@ -202,13 +214,16 @@
                     `;
                 });
             }
-
-            // Limpiar el campo de entrada
-            document.getElementById('user-input').value = '';
             // Hacer scroll al final del chat
             chatBox.scrollTop = chatBox.scrollHeight;
         })
-        .catch(error => console.error('Error:', error));
+        .catch(error => {
+            console.error('Error:', error);
+            chatBox.innerHTML += `<div class='response'><strong>Respuesta:</strong> Hubo un error al procesar tu solicitud. Inténtalo de nuevo más tarde.</div>`;
+        });
+
+        // Limpiar el campo de entrada
+        document.getElementById('user-input').value = '';
     }
   </script>
 
