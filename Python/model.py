@@ -1,11 +1,6 @@
+# Script 2: Cargar el modelo y realizar recomendaciones
 import pandas as pd
 import joblib
-
-# Cargar el vectorizador, modelo NMF, matriz de similitud y los datos de los hoteles
-vectorizer = joblib.load('vectorizer.pkl')
-nmf = joblib.load('nmf_model.pkl')
-similitud = joblib.load('similitud.pkl')
-hoteles = joblib.load('hoteles.pkl')
 
 # Definir función para obtener recomendaciones
 def obtener_recomendaciones(municipio, precio, personas, top_n=5):
@@ -21,11 +16,17 @@ def obtener_recomendaciones(municipio, precio, personas, top_n=5):
     Retorna:
     recomendaciones (pd.DataFrame): Recomendaciones de hoteles.
     """
-    # Filtrar los hoteles en el municipio deseado, con precio cercano y suficientes habitaciones/camas
+    # Cargar el vectorizador, modelo NMF, matriz de similitud y los datos de los hoteles
+    vectorizer = joblib.load('vectorizer.pkl')
+    nmf = joblib.load('nmf_model.pkl')
+    similitud = joblib.load('similitud.pkl')
+    hoteles = joblib.load('hoteles.pkl')
+
+    # Filtrar los hoteles en el municipio deseado, con precio cercano y suficientes camas
     hoteles_filtrados = hoteles[
         (hoteles['Municipio'].str.lower() == municipio.lower()) & 
         (hoteles['Precio'] <= precio) &
-        ((hoteles['Habitaciones'] * hoteles['Camas']) >= personas)
+        (hoteles['Camas'] >= personas)
     ]
     
     if hoteles_filtrados.empty:
@@ -39,6 +40,9 @@ def obtener_recomendaciones(municipio, precio, personas, top_n=5):
     indices_recomendaciones = similitud_hoteles.argsort()[::-1][1:top_n + 1]  # Obtener las `top_n` recomendaciones más similares
     
     recomendaciones = hoteles.iloc[indices_recomendaciones]
+    
+    # Filtrar las recomendaciones para asegurarse de que tengan suficientes camas y habitaciones
+    recomendaciones = recomendaciones[(recomendaciones['Camas'] >= personas) & (recomendaciones['Habitaciones'] >= (personas // 2))]
     
     return recomendaciones[['Nombre.Comercial', 'Direccion.Comercial', 'Correo.Electronico', 'Habitaciones', 'Camas', 'Empleados']]
 

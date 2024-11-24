@@ -1,6 +1,5 @@
 import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.decomposition import NMF
 import nltk
 import joblib
@@ -28,6 +27,7 @@ nmf = NMF(n_components=10, random_state=42)
 X_nmf = nmf.fit_transform(X)
 
 # Calcular similitud entre hoteles
+from sklearn.metrics.pairwise import cosine_similarity
 similitud = cosine_similarity(X_nmf)
 
 # Guardar el vectorizador, modelo NMF y matriz de similitud
