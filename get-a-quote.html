@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -86,7 +85,7 @@
       <a href="index.html" class="logo d-flex align-items-center me-auto">
         <!-- Uncomment the line below if you also wish to use an image logo -->
         <!-- <img src="assets/img/logo.png" alt=""> -->
-        <h1 class="sitename">TRAVEL ROOMIE</h1>
+        <h1 class="sitename">SISAV</h1>
       </a>
 
       <nav id="navmenu" class="navmenu">
@@ -99,7 +98,7 @@
         </ul>
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
       </nav>
-      <a class="btn-getstarted" href="get-a-quote.html">Hablemos</a>
+      <a class="btn-getstarted" href="get-a-quote.html">Informacion con chat en tiempo real</a>
     </div>
   </header>
 
@@ -138,13 +137,22 @@
             <div class="field input">
               <label>Correo</label>
               <input type="text" name="email" placeholder="tucorreo@correo.com" required>
+            </div>
+            <div class="field image">
+              <label>Tu Avatar</label>
+              <input type="file" name="image" accept="image/x-png,image/gif,image/jpeg,image/jpg" required>
+            </div>
+            <div class="field button d-flex justify-content-between">
+              <input type="submit" name="submit" value="Acceder al Chat" class="btn btn-primary me-2">
+              <button class="btn btn-primary" onclick="enviarConsulta()">Enviar</button>
+            </div>
           </form>
 
           <!-- Chat Section -->
           <div id="chat-container">
             <div id="chat-box" class="chat-box"></div>
             <input type="text" id="user-input" placeholder="Ingrese el municipio, precio y número de personas (Ej: Duitama, 120000, 9)">
-            <button class="btn btn-primary mt-2" onclick="enviarConsulta()">Enviar</button>
+            
           </div>
 
         </div>
